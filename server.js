@@ -9,7 +9,7 @@ app.use('/bower_components', express.static('bower_components'));
 
 function getTimestamp(){
   var currentTime = new Date().getTime();
-  return currentTime - (currentTime % (60*60));
+  return currentTime - (currentTime % (60*60*1000));
 }
 
 var webdisUrl = 'http://10.0.0.4:7379';
