@@ -27,6 +27,7 @@ angular.module('workersMapApp')
     [28, 48, 40, 19, 42, 27, 50]
   ];
     
+   
     /*
     //DataService.loadData();
     $scope.d3data = DataService.graphData;
