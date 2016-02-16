@@ -1,11 +1,9 @@
 
-  <div  class="row"> <h1 class="text-center">Top Users in last week</h1></div>    
+  <div> <h1 class="graph-title text-center">Top #<i>users</i> in last week</h1></div>    
     <canvas id="bar" class="chart chart-bar"
-  chart-data="data" chart-labels="labels"> chart-series="series"
-    </canvas>
+  chart-data="usersScores" chart-labels="usersLabels"></canvas>
 <div class="clear"></div>
-<div class="row"> <h1 class="text-center">Top Users in last week</h1></div>    
-    <canvas id="bar" class="chart chart-bar"
-  chart-data="data" chart-labels="labels" chart-colours="colors"> chart-series="series"
-    </canvas>
+<div> <h1 class="graph-title text-center">Top #<i>channels</i> in last week</h1></div>    
+    <canvas id="barx" class="chart chart-bar"
+  chart-data="channelScores" chart-labels="channelsLabels" chart-legend="true" colors="colours"></canvas>
 

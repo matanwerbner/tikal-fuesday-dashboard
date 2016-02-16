@@ -5,8 +5,32 @@
     }, {
         "name": "user2",
         "count": "34"
+    },{
+        "name": "user3",
+        "count": "123"
+    }, {
+        "name": "user4",
+        "count": "342"
+    },{
+        "name": "user5",
+        "count": "127"
+    }, {
+        "name": "user6",
+        "count": "349"
     }],
     "channels": [{
+        "name": "channel1",
+        "count": "2"
+    }, {
+        "name" : "channel2",
+        "count" : "5"
+    },{
+        "name": "channel1",
+        "count": "2"
+    }, {
+        "name" : "channel2",
+        "count" : "5"
+    },{
         "name": "channel1",
         "count": "2"
     }, {
