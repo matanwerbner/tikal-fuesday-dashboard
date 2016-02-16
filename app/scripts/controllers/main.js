@@ -18,7 +18,10 @@ angular.module('workersMapApp')
             count: 3
         }];
 
-        DataService.loadData().then(function(data) {
+        DataService.loadUsersData().then(function(data) {
+            debugger;
+        });
+         DataService.loadChannelsData().then(function(data) {
             debugger;
         });
         $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];

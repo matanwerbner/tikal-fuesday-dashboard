@@ -21,7 +21,7 @@ app.get('/api/get_last_hour_users', function(req, res) {
 });
 
 app.get('/api/get_last_hour_channels', function(req, res) {
-  var newUrl = webdisUrl + '/HGETALL/channels_' + currentTime;
+  var newUrl = webdisUrl + '/HGETALL/channels_' + getTimestamp();
   request(newUrl).pipe(res);
 });
 

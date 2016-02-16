@@ -45,8 +45,11 @@ angular
 .service('DataService',['$http', function($http) {
   //DataFromSlack.get(function(data) {console.log(data);});
   var self = {
-    loadData: function() {
+    loadUsersData: function() {
        return $http.get('api/get_last_hour_users');
+    },
+    loadChannelsData: function(){
+      return $http.get('api/get_last_hour_channels');
     }
   };
   return self;
