@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
-
+  grunt.loadNpmTasks('grunt-express-server');
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -23,7 +23,10 @@ module.exports = function (grunt) {
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
+    express: {
+      server: 'www/server.js',
+      port: 8090
+    },
     // Project settings
     yeoman: appConfig,
 
@@ -396,6 +399,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
+      'express',
       'clean:server',
       'wiredep',
       'concurrent:server',
@@ -441,5 +445,5 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-    
+
 };

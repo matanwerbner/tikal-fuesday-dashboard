@@ -1,17 +1,10 @@
-var express = require('express')
-var livereload = require('livereload')
+var express = require('express');
+var app = express();
+var path = require('path');
 
-var app = express()
+app.use('/', express.static('app'));
+app.use('/bower_components', express.static('bower_components'));
 
-app.use('/node_modules', express.static(__dirname + '/node_modules'))
-app.use('/', express.static(__dirname + '/src'))
-
-app.listen(3000)
-console.log('Listening on port 3000.')
-
-app = livereload.createServer({
-  exts: ['html', 'css', 'js', 'png', 'gif', 'jpg', 'ts']
-})
-
-app.watch(__dirname + '/src')
-console.log('Live reload enabled')
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
