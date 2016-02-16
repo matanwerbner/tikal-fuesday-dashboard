@@ -19,8 +19,8 @@
         "count": "349"
     }],
     "channels": [{
-        "name": "channel1",
-        "count": "2"
+        "general": "3",
+        "other": "4"
     }, {
         "name" : "channel2",
         "count" : "5"
