@@ -1,0 +1,16 @@
+{
+    "users": [{
+        "name": "user1",
+        "count": "12"
+    }, {
+        "name": "user2",
+        "count": "34"
+    }],
+    "channels": [{
+        "name": "channel1",
+        "count": "2"
+    }, {
+        "name" : "channel2",
+        "count" : "5"
+    }]
+}

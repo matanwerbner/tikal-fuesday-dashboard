@@ -39,62 +39,18 @@ angular
   })
 
 .factory('DataFromSlack', function($resource) {
-  return $resource('https://..../:id/', {
-    id: '@id'
-  }, {
-    update: {
-      method: 'PUT'
-    }
-  });
+
 })
 
-.service('DataService', function(DataFromSlack, $q) {
+.service('DataService',['$http', function($http) {
   //DataFromSlack.get(function(data) {console.log(data);});
   var self = {
-    //persons: data,
-    graphData: [],
-    searchTerm: null,
-    isLoading: false, // is it in the middle of a loading process ?
     loadData: function() {
-      self.isLoading = true; //...no server yet
-      self.graphData = [{
-        name: 'Greg',
-        score: 48
-      }, {
-        name: 'Ari',
-        score: 75
-      }, {
-        name: 'Q',
-        score: 96
-      }, {
-        name: 'Loser',
-        score: 98
-      }];
-
-      if (!self.isLoading) {
-        self.graphData = [];
-        //set the isLoading flag to true
-        self.isLoading = true;
-        //set params to be sent to the server
-        var params = {
-          whatToLoad: self.searchTerm,
-        };
-        DataFromSlack.get(params, function(data) {
-          //console.log(data);
-          angular.forEach(data.results, function(item) {
-              self.graphData.push(new graphData(item));
-              //console.log('new p: ' + self.persons.length);
-            })
-            //finished loading set the isLoading to false
-          self.isLoading = false;
-        });
-      }
-
+       return $http.get('api/get_last_hour_users');
     }
   };
-  self.loadData();
   return self;
-})
+}])
 
 /*
  *
@@ -180,7 +136,7 @@ angular
 
           svg.attr('transform', 'translate(10,10)')
           svg.call(xAxis);
-            
+
           // set the height and width based on the calculations above
           svg.attr((graphOrientation === 'horizontal') ? 'height' : 'width', '100%');
 
@@ -385,4 +341,4 @@ angular
       }); //end of promise's then function
     }
   };
-}]);;
+}]);
