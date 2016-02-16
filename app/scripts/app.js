@@ -16,9 +16,10 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'd3'
+    'd3',
+    'chart.js'
   ])
-  .config(function($routeProvider) {
+  .config(function($routeProvider, $httpProvider, $resourceProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -31,7 +32,69 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+    $httpProvider.defaults.headers.common['Authorization'] = 'Token 20002cd74d5ce124ae219e739e18956614aab490';
+    // Don't strip trailing slashes from calculated URLs
+    $resourceProvider.defaults.stripTrailingSlashes = false;
   })
+
+.factory('DataFromSlack', function($resource) {
+  return $resource('https://..../:id/', {
+    id: '@id'
+  }, {
+    update: {
+      method: 'PUT'
+    }
+  });
+})
+
+.service('DataService', function(DataFromSlack, $q) {
+  //DataFromSlack.get(function(data) {console.log(data);});
+  var self = {
+    //persons: data,
+    graphData: [],
+    searchTerm: null,
+    isLoading: false, // is it in the middle of a loading process ?
+    loadData: function() {
+      self.isLoading = true; //...no server yet
+      self.graphData = [{
+        name: 'Greg',
+        score: 48
+      }, {
+        name: 'Ari',
+        score: 75
+      }, {
+        name: 'Q',
+        score: 96
+      }, {
+        name: 'Loser',
+        score: 98
+      }];
+
+      if (!self.isLoading) {
+        self.graphData = [];
+        //set the isLoading flag to true
+        self.isLoading = true;
+        //set params to be sent to the server
+        var params = {
+          whatToLoad: self.searchTerm,
+        };
+        DataFromSlack.get(params, function(data) {
+          //console.log(data);
+          angular.forEach(data.results, function(item) {
+              self.graphData.push(new graphData(item));
+              //console.log('new p: ' + self.persons.length);
+            })
+            //finished loading set the isLoading to false
+          self.isLoading = false;
+        });
+      }
+
+    }
+  };
+  self.loadData();
+  return self;
+})
 
 /*
  *
@@ -59,10 +122,15 @@ angular
           barWidth = parseInt(attrs.barWidth) || 20,
           barPadding = parseInt(attrs.barPadding) || 5;
 
+
+
+
         // d3 is the raw d3 object
         var svg = d3.select(element[0])
           .append('svg')
-          .style((graphOrientation === 'horizontal') ? 'width' : 'height', '100%');
+          .style((graphOrientation === 'horizontal') ? 'width' : 'height', '100%')
+          .append('g')
+
 
         //Browser onresize event
         window.onresize = function() {
@@ -105,9 +173,17 @@ angular
             })])
             .range([0, (graphOrientation === 'horizontal') ? width : height]);
 
+          var x = d3.scale.ordinal()
+            .domain(["apple", "orange", "banana", "grapefruit"])
+            .rangePoints([0, width]);
+          var xAxis = d3.svg.axis(x);
+
+          svg.attr('transform', 'translate(10,10)')
+          svg.call(xAxis);
 
           // set the height and width based on the calculations above
           svg.attr((graphOrientation === 'horizontal') ? 'height' : 'width', '100%');
+
 
 
           //--create the rectangles for the bar chart --
@@ -231,13 +307,13 @@ angular
           .on("tick", tick)
             .size([width, height])
             .charge(-600)
-    .gravity(0.2)
-    .theta(0)
-    .alpha(0.1)
+            .gravity(0.2)
+            .theta(0)
+            .alpha(0.1)
 
-            .linkDistance(function(d) {
-              return radius(d.source.size) + radius(d.target.size) + 20;
-            });
+          .linkDistance(function(d) {
+            return radius(d.source.size) + radius(d.target.size) + 20;
+          });
 
           force
             .nodes(data.nodes)
@@ -263,11 +339,11 @@ angular
             .data(data.nodes)
             .enter().append("g")
             .attr("class", "node")
-          .on('click', function(d) {
-            return scope.onClick({
-              item: d
-            });
-          })
+            .on('click', function(d) {
+              return scope.onClick({
+                item: d
+              });
+            })
 
           //.call(force.drag);
           node.append("circle")
