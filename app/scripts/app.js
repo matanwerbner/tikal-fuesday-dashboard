@@ -234,16 +234,16 @@ angular
     .gravity(0.2)
     .theta(0)
     .alpha(0.1)
-         
+
             .linkDistance(function(d) {
               return radius(d.source.size) + radius(d.target.size) + 20;
             });
-          
+
           force
             .nodes(data.nodes)
             .links(data.links)
             .start();
-            
+
           var link = svg.selectAll(".link")
             .data(data.links)
             .enter().append("g")
@@ -268,7 +268,7 @@ angular
               item: d
             });
           })
-          
+
           //.call(force.drag);
           node.append("circle")
             .attr("r", function(d) {
@@ -309,4 +309,4 @@ angular
       }); //end of promise's then function
     }
   };
-}]);;
+}]);
